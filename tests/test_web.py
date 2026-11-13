@@ -150,6 +150,13 @@ class TestWeb(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertIn("Chưa có key AI", res.get_json()["error"])
 
+    def test_t8_page_too_large_5mb(self):
+        """T8: Trang nặng hơn 5 MB -> báo lỗi rõ ràng."""
+        with patch("core.collect.fetch_page.fetch_page", return_value={"too_large": True, "error": "Response body too large"}):
+            res = self.client.post("/api/check", json={"url": "https://taio.club"})
+            self.assertEqual(res.status_code, 502)
+            self.assertIn("vượt quá kích thước cho phép", res.get_json()["error"])
+
     def test_t27_payload_size_limit(self):
         """T27: Trang 5.000 liên kết, 1.000 ảnh -> payload phản hồi /api/check dưới 1 MB."""
         many_links = "".join([f'<a href="https://taio.club/page/{i}">Liên kết {i}</a>\n' for i in range(5000)])
