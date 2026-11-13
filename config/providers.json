@@ -1,0 +1,66 @@
+{
+  "providers": [
+    {
+      "id": "anthropic",
+      "type": "anthropic",
+      "label": "Anthropic (Claude)",
+      "default_model": "claude-3-5-sonnet-20241022",
+      "default_endpoint": "https://api.anthropic.com/v1/messages",
+      "env_key": "ANTHROPIC_API_KEY",
+      "base_url_editable": false
+    },
+    {
+      "id": "google_gemini",
+      "type": "openai_compat",
+      "label": "Google Gemini (OpenAI compat)",
+      "default_model": "gemini-2.0-flash-exp",
+      "default_endpoint": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+      "env_key": "GEMINI_API_KEY",
+      "base_url_editable": false
+    },
+    {
+      "id": "openai",
+      "type": "openai_compat",
+      "label": "OpenAI (GPT-4o)",
+      "default_model": "gpt-4o-mini",
+      "default_endpoint": "https://api.openai.com/v1/chat/completions",
+      "env_key": "OPENAI_API_KEY",
+      "base_url_editable": false
+    },
+    {
+      "id": "openrouter",
+      "type": "openai_compat",
+      "label": "OpenRouter",
+      "default_model": "anthropic/claude-3.5-sonnet",
+      "default_endpoint": "https://openrouter.ai/api/v1/chat/completions",
+      "env_key": "OPENROUTER_API_KEY",
+      "base_url_editable": false
+    },
+    {
+      "id": "deepseek",
+      "type": "openai_compat",
+      "label": "DeepSeek",
+      "default_model": "deepseek-chat",
+      "default_endpoint": "https://api.deepseek.com/chat/completions",
+      "env_key": "DEEPSEEK_API_KEY",
+      "base_url_editable": false
+    },
+    {
+      "id": "ollama",
+      "type": "openai_compat",
+      "label": "Ollama (Máy cục bộ)",
+      "default_model": "llama3.2",
+      "default_endpoint": "http://127.0.0.1:11434/v1/chat/completions",
+      "env_key": "OLLAMA_API_KEY",
+      "base_url_editable": true,
+      "local_only": true
+    }
+  ],
+  "allowed_hosts": [
+    "api.anthropic.com",
+    "generativelanguage.googleapis.com",
+    "api.openai.com",
+    "openrouter.ai",
+    "api.deepseek.com"
+  ]
+}
