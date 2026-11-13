@@ -41,7 +41,7 @@ def main():
         import threading
         threading.Thread(target=_open, daemon=True).start()
 
-    app.run(host=host, port=port, debug=False)
+    app.run(host=host, port=port, debug=False, use_reloader=True)
 
 if __name__ == "__main__":
     main()
