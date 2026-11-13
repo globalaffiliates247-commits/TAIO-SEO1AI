@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAIO SEO Check — Kiểm tra sức khoẻ SEO website (TAIO.CLUB)</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-area">
+        <a href="/" class="brand-logo">TAIO <span>SEO Check</span></a>
+        <div class="brand-version" id="brand-version-tag">v0.1.0 · Đang tải...</div>
+      </div>
+      <div class="header-actions">
+        <div class="ai-status-pill" id="ai-status-pill" title="Cài đặt kết nối AI bằng API Key riêng của bạn">
+          <span class="ai-status-dot" id="ai-status-dot"></span>
+          <span id="ai-status-text">Kết nối AI (tuỳ chọn)</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hộp thông báo lỗi -->
+    <div id="error-box" class="card" style="display:none; background:var(--color-red-bg); border-color:var(--color-red-border); color:var(--color-red); font-size:14px; padding:12px 16px;"></div>
+
+    <!-- Màn hình 1: Chờ nhập (Search Form) -->
+    <div id="state-input" class="card">
+      <h1 style="font-size:22px; font-weight:800; color:#0f172a; margin-bottom:6px;">Kiểm tra sức khoẻ SEO website toàn diện</h1>
+      <p style="font-size:14px; color:var(--text-muted); line-height:1.5;">Dán 1 đường link để nhận điểm SEO 0–100, 5 việc cần sửa ngay và bảng soi chi tiết meta, liên kết, hình ảnh, schema, mạng xã hội bằng tiếng Việt.</p>
+      
+      <form id="seo-form" class="search-form">
+        <input type="text" id="seo-url-input" class="url-input" placeholder="Dán link website vào đây (ví dụ: https://taio.club)..." required autocomplete="off" spellcheck="false">
+        <button type="submit" class="btn btn-primary" id="btn-submit-check">Kiểm tra SEO ngay</button>
+      </form>
+
+      <div class="limit-info">
+        <span id="daily-limit-text">Lượt kiểm tra miễn phí hôm nay: Đang nạp...</span>
+        <span>Key của bạn, bạn giữ · Không lưu dữ liệu</span>
+      </div>
+    </div>
+
+    <!-- Màn hình 2: Đang kiểm tra (Progress State) -->
+    <div id="state-progress" class="card" style="display:none;">
+      <h2 style="font-size:18px; margin-bottom:16px;">Đang thu thập và phân tích dữ liệu website...</h2>
+      <div class="progress-box">
+        <div class="progress-item">
+          <div class="spinner"></div>
+          <span>1. Kiểm tra kỹ thuật (HTTPS, robots.txt, sitemap, canonical, chuyển hướng)...</span>
+        </div>
+        <div class="progress-item">
+          <div class="spinner"></div>
+          <span>2. Phân tích nội dung cơ bản (Tiêu đề, mô tả, cây H1-H6, mật độ liên kết, ảnh)...</span>
+        </div>
+        <div class="progress-item">
+          <div class="spinner"></div>
+          <span>3. Đọc dữ liệu có cấu trúc Schema (JSON-LD)...</span>
+        </div>
+        <div class="progress-item">
+          <div class="spinner"></div>
+          <span>4. Đo lường tốc độ trải nghiệm thực tế (Google Core Web Vitals)...</span>
+        </div>
+      </div>
+      <div style="font-size:12px; color:var(--text-muted); margin-top:20px; text-align:center;">
+        Nếu dịch vụ vừa thức dậy từ trạng thái nghỉ, quá trình có thể mất khoảng 1 phút. Xin vui lòng đợi giây lát!
+      </div>
+    </div>
+
+    <!-- Màn hình 3: Kết quả tổng quan (Results State) -->
+    <div id="state-results" style="display:none;">
+      <!-- Điểm tổng thể & Vòng tròn Gauge -->
+      <div class="card score-section">
+        <div style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">KẾT QUẢ ĐÁNH GIÁ SỨC KHOẺ SEO</div>
+        <div style="font-size:16px; font-weight:700; color:#0f172a; margin-bottom:16px;" id="result-url-display"></div>
+        <div id="main-score-gauge"></div>
+      </div>
+
+      <!-- 4 Thẻ điểm nhóm -->
+      <div class="group-grid" id="group-scores-grid"></div>
+
+      <!-- 5 Việc cần sửa ngay -->
+      <div class="card">
+        <div class="fixes-title-area">
+          <h2 style="font-size:18px; font-weight:800;">5 Việc cần sửa ngay (Nguyên lý 80/20)</h2>
+          <button class="btn btn-secondary btn-sm" id="btn-explain-fixes">✨ Giải thích cho trang của tôi</button>
+        </div>
+        <div id="top-fixes-container"></div>
+      </div>
+
+      <!-- Khối nút hành động & Tải báo cáo -->
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:20px;">
+        <button class="btn btn-primary" id="btn-toggle-details">🔍 Mở bảng Soi chi tiết (6 Tab)</button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-secondary" id="btn-download-html">📥 Tải báo cáo (HTML)</button>
+          <button class="btn btn-secondary" id="btn-download-md">📄 Tải Markdown</button>
+        </div>
+      </div>
+
+      <!-- Accordion: Toàn bộ 24 hạng mục -->
+      <details class="card" style="cursor:pointer; padding:16px;">
+        <summary style="font-weight:700; font-size:15px; color:#0f172a;">Xem toàn bộ 24 hạng mục kiểm tra chi tiết</summary>
+        <div id="all-checks-accordion" style="margin-top:16px; cursor:default;"></div>
+      </details>
+    </div>
+
+    <!-- Màn hình 4: Soi chi tiết 6 Tab (Details Section) -->
+    <div id="section-details" class="card" style="display:none; margin-top:24px;">
+      <h2 style="font-size:18px; font-weight:800; margin-bottom:16px;">Bảng Soi Chi Tiết Website (6 Tab Chuyên Sâu)</h2>
+      
+      <div class="tabs-header">
+        <button class="tab-btn active" data-tab="tab-overview">1. Tổng quan</button>
+        <button class="tab-btn" data-tab="tab-headings">2. Tiêu đề (H1-H6)</button>
+        <button class="tab-btn" data-tab="tab-links">3. Liên kết</button>
+        <button class="tab-btn" data-tab="tab-images">4. Hình ảnh</button>
+        <button class="tab-btn" data-tab="tab-schema">5. Schema</button>
+        <button class="tab-btn" data-tab="tab-social">6. Mạng xã hội</button>
+      </div>
+
+      <div class="tabs-content">
+        <div id="tab-overview" class="tab-pane active"></div>
+        <div id="tab-headings" class="tab-pane"></div>
+        <div id="tab-links" class="tab-pane"></div>
+        <div id="tab-images" class="tab-pane"></div>
+        <div id="tab-schema" class="tab-pane"></div>
+        <div id="tab-social" class="tab-pane"></div>
+      </div>
+    </div>
+
+    <!-- Khối kêu gọi tham gia TAIO.CLUB -->
+    <div class="cta-box">
+      <h3>Xây Dựng & Tự Động Hoá Doanh Nghiệp Số Với TAIO.CLUB</h3>
+      <p>Tham gia cộng đồng ứng dụng Trí tuệ Nhân tạo & Tự động hoá kinh doanh hàng đầu Việt Nam.</p>
+      <a href="https://digitalbusiness.taio.club" target="_blank" rel="noopener noreferrer" class="cta-btn">Khám phá TAIO.CLUB ngay →</a>
+    </div>
+
+    <!-- Chân trang & Ghi công bản quyền -->
+    <footer class="footer-credits">
+      TAIO SEO Check · Một sản phẩm thuộc hệ sinh thái <strong>TAIO.CLUB</strong><br>
+      Dựa trên mã nguồn mở Claude-seo (MIT) của Agrici Daniel · Bản quyền © 2026 TAIO.CLUB
+    </footer>
+  </div>
+
+  <!-- MODAL: Cài đặt kết nối AI (F10) -->
+  <div class="modal-backdrop" id="ai-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size:17px; font-weight:700;">Kết nối AI bằng API Key riêng</h3>
+        <button class="modal-close" id="ai-modal-close">&times;</button>
+      </div>
+
+      <div class="form-group">
+        <label for="ai-provider-select">Nhà cung cấp AI:</label>
+        <select id="ai-provider-select" class="form-control"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="ai-key-input">API Key của bạn:</label>
+        <input type="password" id="ai-key-input" class="form-control" placeholder="Nhập API Key riêng của bạn..." autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="ai-model-input">Tên Model (Tuỳ chọn đổi):</label>
+        <input type="text" id="ai-model-input" class="form-control" placeholder="Tên model">
+      </div>
+
+      <div class="form-group" id="ai-endpoint-group" style="display:none;">
+        <label for="ai-endpoint-input">Endpoint / Base URL tuỳ chỉnh:</label>
+        <input type="text" id="ai-endpoint-input" class="form-control" placeholder="https://api.openai.com/v1">
+      </div>
+
+      <div class="form-group" style="display:flex; align-items:center; gap:8px;">
+        <input type="checkbox" id="ai-remember-key" style="cursor:pointer;">
+        <label for="ai-remember-key" style="margin:0; font-size:13px; cursor:pointer;">Nhớ key trên trình duyệt này (lưu localStorage)</label>
+      </div>
+
+      <div id="ai-test-result" style="font-size:13px; margin:8px 0; min-height:20px;"></div>
+
+      <div style="display:flex; justify-content:space-between; gap:10px; margin-top:16px;">
+        <button class="btn btn-secondary btn-sm" id="ai-modal-test">Thử kết nối</button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-secondary btn-sm" id="ai-modal-cancel">Đóng</button>
+          <button class="btn btn-primary btn-sm" id="ai-modal-save">Lưu cấu hình</button>
+        </div>
+      </div>
+
+      <div class="privacy-notice">
+        <strong>🔒 Cam kết bảo mật & quyền riêng tư (Privacy by Design):</strong><br>
+        Key chỉ lưu trên trình duyệt của bạn. Khi gọi AI, key đi qua máy chủ TAIO.CLUB qua kết nối HTTPS bảo mật để chuyển tới nhà cung cấp do bạn chọn, và không bao giờ được ghi log hay lưu lại máy chủ.
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Gợi ý viết lại Title & Description (F11) -->
+  <div class="modal-backdrop" id="ai-rewrite-modal">
+    <div class="modal-card" style="max-width:650px;">
+      <div class="modal-header">
+        <h3 style="font-size:17px; font-weight:700;">Gợi ý viết lại Title & Description bằng AI</h3>
+        <button class="modal-close" id="ai-rewrite-close">&times;</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:12px;">
+        <div class="form-group">
+          <label for="ai-rewrite-keyword">Từ khoá chính (Tuỳ chọn):</label>
+          <input type="text" id="ai-rewrite-keyword" class="form-control" placeholder="Ví dụ: thời trang trẻ em, khoá học AI...">
+        </div>
+        <div class="form-group">
+          <label for="ai-rewrite-brand">Tên thương hiệu:</label>
+          <input type="text" id="ai-rewrite-brand" class="form-control" placeholder="Tên thương hiệu">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ai-rewrite-style">Phong cách viết:</label>
+        <select id="ai-rewrite-style" class="form-control">
+          <option value="ban_hang">Bán hàng (Kích thích hành động, tạo chuyển đổi)</option>
+          <option value="thong_tin">Thông tin (Chuyên sâu, giải đáp rõ ràng)</option>
+          <option value="dich_vu">Dịch vụ (Uy tín, chuyên nghiệp)</option>
+          <option value="tin_tuc">Tin tức (Nóng hổi, thời sự)</option>
+        </select>
+      </div>
+
+      <div style="text-align:right; margin-bottom:16px;">
+        <button class="btn btn-primary btn-sm" id="ai-rewrite-submit">Tạo 3 Gợi Ý Mới</button>
+      </div>
+
+      <div id="ai-rewrite-loading" style="display:none; text-align:center; padding:20px;">
+        <div class="spinner" style="margin:0 auto 10px;"></div>
+        <div style="font-size:13px; color:var(--text-muted);">AI đang phân tích ngữ cảnh trang web và sáng tạo tiêu đề...</div>
+      </div>
+
+      <div id="ai-rewrite-results"></div>
+    </div>
+  </div>
+
+  <!-- Các tệp mã nguồn JavaScript -->
+  <script src="/static/gauge.js"></script>
+  <script src="/static/ai_settings.js"></script>
+  <script src="/static/ai_panel.js"></script>
+  <script src="/static/details.js"></script>
+  <script src="/static/report.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
