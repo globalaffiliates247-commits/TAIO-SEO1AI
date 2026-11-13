@@ -1,0 +1,193 @@
+{
+  "app_name": "TAIO SEO Check",
+  "org_name": "TAIO.CLUB",
+  "tagline": "Kiểm tra sức khoẻ SEO website toàn diện — Bằng tiếng Việt",
+  "subtitle": "Dán 1 đường link để nhận điểm SEO 0–100, 5 việc cần sửa ngay và bảng soi chi tiết meta, liên kết, hình ảnh, schema, mạng xã hội.",
+  
+  "groups": {
+    "group_technical": "Kỹ thuật",
+    "group_content": "Nội dung cơ bản",
+    "group_schema": "Dữ liệu cấu trúc",
+    "group_speed": "Tốc độ"
+  },
+
+  "bands": {
+    "good": "Tốt",
+    "needs_improvement": "Cần cải thiện",
+    "poor": "Yếu",
+    "unmeasurable": "Không đo được"
+  },
+
+  "notices": {
+    "notice_tracking_url": "Đường link có chứa tham số theo dõi quảng cáo (UTM/Gclid). Một số kết quả được phân tích trên bản link đã lược bỏ tham số theo dõi.",
+    "notice_js_rendered": "Trang web này có dấu hiệu được dựng bằng JavaScript. Công cụ đọc mã nguồn HTML gốc nên có thể thấy ít nội dung hơn so với trình duyệt đã nạp xong."
+  },
+
+  "checks": {
+    "tech_https": {
+      "name": "Sử dụng giao thức bảo mật HTTPS",
+      "why": "HTTPS mã hoá thông tin giữa người dùng và website, là tiêu chuẩn an toàn bắt buộc và là tín hiệu xếp hạng chính thức của Google.",
+      "fix": "Cài đặt chứng chỉ SSL/TLS cho tên miền và cấu hình tự động chuyển hướng toàn bộ lượt truy cập từ HTTP sang HTTPS (gửi cho người làm web của bạn).",
+      "verify": "Mở trang web và kiểm tra biểu tượng ổ khoá trên thanh địa chỉ trình duyệt."
+    },
+    "tech_status": {
+      "name": "Mã trạng thái phản hồi máy chủ (Status Code)",
+      "why": "Mã phản hồi HTTP 200 báo cho bot tìm kiếm và người dùng biết trang web đang hoạt động bình thường.",
+      "fix": "Kiểm tra cấu hình máy chủ, routing hoặc khôi phục trang nếu mã trả về là 404, 500 hay các mã lỗi khác (gửi cho người làm web của bạn).",
+      "verify": "Mở trang trên trình duyệt và kiểm tra mã HTTP trả về bằng công cụ Inspect Network."
+    },
+    "tech_redirects": {
+      "name": "Chuỗi chuyển hướng URL (Redirects)",
+      "why": "Chuyển hướng nhiều lần làm chậm tốc độ tải trang, lãng phí ngân sách thu thập dữ liệu (crawl budget) của bot tìm kiếm.",
+      "fix": "Trỏ thẳng liên kết tới URL đích cuối cùng thay vì đi qua nhiều bước trung gian (gửi cho người làm web của bạn).",
+      "verify": "Kiểm tra chuỗi chuyển hướng bằng công cụ kiểm tra HTTP Status hoặc dán link vào công cụ này."
+    },
+    "tech_robots": {
+      "name": "Tệp chỉ dẫn robots.txt",
+      "why": "robots.txt hướng dẫn bot tìm kiếm những khu vực nào được phép hoặc không được phép truy cập trên website.",
+      "fix": "Tạo tệp robots.txt ở thư mục gốc của trang web và đảm bảo không chặn nhầm trang quan trọng bằng lệnh Disallow (gửi cho người làm web của bạn).",
+      "verify": "Truy cập đường dẫn domain.com/robots.txt để kiểm tra nội dung tệp."
+    },
+    "tech_noindex": {
+      "name": "Khả năng lập chỉ mục (Không bị gắn noindex)",
+      "why": "Thẻ noindex ra lệnh cho công cụ tìm kiếm không lưu và không hiển thị trang web trên kết quả tìm kiếm Google.",
+      "fix": "Xoá chỉ thị noindex trong thẻ meta robots hoặc header HTTP X-Robots-Tag (gửi cho người làm web của bạn).",
+      "verify": "Xem mã nguồn trang (View Source) và tìm kiếm chữ 'noindex' để đảm bảo không còn tồn tại."
+    },
+    "tech_sitemap": {
+      "name": "Sơ đồ trang web (Sitemap XML)",
+      "why": "Sitemap giúp công cụ tìm kiếm khám phá toàn bộ bài viết, sản phẩm và trang quan trọng trên website một cách nhanh chóng.",
+      "fix": "Tạo sitemap.xml tự động bằng plugin hoặc công cụ tạo sitemap, đặt tại thư mục gốc và khai báo trong robots.txt (gửi cho người làm web của bạn).",
+      "verify": "Truy cập domain.com/sitemap.xml hoặc kiểm tra trong Google Search Console."
+    },
+    "tech_canonical": {
+      "name": "Thẻ liên kết chuẩn hoá (Canonical Tag)",
+      "why": "Canonical giúp Google nhận biết trang gốc chuẩn, tránh bị phạt do lỗi trùng lặp nội dung khi có nhiều link cùng trỏ về 1 nội dung.",
+      "fix": "Thêm thẻ <link rel=\"canonical\" href=\"URL-chuan\"> trong phần <head> của trang (gửi cho người làm web của bạn).",
+      "verify": "Xem mã nguồn phần <head> để kiểm tra đường link canonical khai báo chính xác."
+    },
+    "tech_viewport": {
+      "name": "Thẻ hiển thị co giãn trên di động (Viewport)",
+      "why": "Google ưu tiên lập chỉ mục cho thiết bị di động (Mobile-first indexing); thiếu viewport khiến trang bị vỡ giao diện trên điện thoại.",
+      "fix": "Thêm thẻ <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> vào phần <head> (gửi cho người làm web của bạn).",
+      "verify": "Mở trang trên điện thoại hoặc thu nhỏ cửa sổ trình duyệt để xem giao diện tự co giãn."
+    },
+    "tech_lang": {
+      "name": "Khai báo ngôn ngữ trang (Thuộc tính lang)",
+      "why": "Giúp trình duyệt và công cụ tìm kiếm xác định đúng ngôn ngữ nội dung và hỗ trợ người dùng khiếm thị dùng phần mềm đọc màn hình.",
+      "fix": "Thêm thuộc tính lang=\"vi\" vào thẻ mở <html> ở đầu trang (gửi cho người làm web của bạn).",
+      "verify": "Kiểm tra dòng đầu tiên của mã nguồn HTML xem có <html lang=\"vi\"> chưa."
+    },
+
+    "content_title": {
+      "name": "Tiêu đề trang (Thẻ Title)",
+      "why": "Tiêu đề trang là dòng chữ to màu xanh xuất hiện trên kết quả Google, quyết định lớn đến việc người dùng có bấm vào web hay không.",
+      "fix": "Viết tiêu đề ngắn gọn 30–60 ký tự, chứa từ khoá chính và tên thương hiệu ở cuối (gửi cho người làm web của bạn).",
+      "verify": "Di chuột lên tab trình duyệt hoặc tìm kiếm trang trên Google để xem tiêu đề."
+    },
+    "content_description": {
+      "name": "Đoạn mô tả tóm tắt (Meta Description)",
+      "why": "Đoạn tóm tắt hiển thị dưới tiêu đề trên Google, giúp thu hút người đọc và tăng tỷ lệ nhấp chuột (CTR).",
+      "fix": "Viết đoạn mô tả từ 70–160 ký tự tóm lược nội dung chính và có lời kêu gọi hành động hấp dẫn (gửi cho người làm web của bạn).",
+      "verify": "Kiểm tra thẻ <meta name=\"description\"> trong mã nguồn phần <head>."
+    },
+    "content_h1": {
+      "name": "Tiêu đề chính của bài viết (Thẻ H1)",
+      "why": "Mỗi trang chỉ nên có duy nhất 1 thẻ H1 để báo cho Google và người đọc biết chủ đề chính xác của trang.",
+      "fix": "Đặt đúng 1 thẻ H1 cho tiêu đề bài viết hoặc sản phẩm; các đề mục nhỏ hơn chuyển sang dùng H2, H3 (gửi cho người làm web của bạn).",
+      "verify": "Dùng tính năng Soi chi tiết của công cụ này để kiểm tra danh sách thẻ H1."
+    },
+    "content_headings": {
+      "name": "Các đề mục phân đoạn (Thẻ H2)",
+      "why": "Các thẻ H2 giúp chia nhỏ nội dung thành các phần rõ ràng, người đọc dễ nắm bắt và Google hiểu sâu cấu trúc bài viết.",
+      "fix": "Thêm ít nhất 1 thẻ H2 chia nhỏ các phần nội dung trong bài viết (gửi cho người làm web của bạn).",
+      "verify": "Xem cây phân cấp tiêu đề trong mục Soi chi tiết."
+    },
+    "content_words": {
+      "name": "Độ dài nội dung văn bản",
+      "why": "Trang có quá ít chữ thường bị Google đánh giá là nội dung mỏng (thin content), khó lên top từ khoá.",
+      "fix": "Bổ sung thông tin chi tiết, hữu ích cho người đọc để đạt tối thiểu từ 300 từ trở lên.",
+      "verify": "Xem số lượng từ được đếm trong bảng Soi chi tiết."
+    },
+    "content_alt": {
+      "name": "Mô tả hình ảnh cho công cụ tìm kiếm (Thuộc tính Alt)",
+      "why": "Bot tìm kiếm không nhìn được ảnh như mắt người; thẻ alt giúp Google hiểu nội dung ảnh và hiển thị trên Google Hình ảnh.",
+      "fix": "Thêm mô tả ngắn gọn, chính xác vào thuộc tính alt của từng thẻ <img> (gửi cho người làm web của bạn).",
+      "verify": "Xem danh sách ảnh trong tab Hình ảnh của phần Soi chi tiết."
+    },
+    "content_links": {
+      "name": "Liên kết nội bộ kết nối các trang (Internal Links)",
+      "why": "Liên kết nội bộ giúp giữ chân khách xem thêm các trang khác và truyền sức mạnh SEO giữa các bài viết.",
+      "fix": "Chèn thêm ít nhất 3 liên kết dẫn tới các bài viết, sản phẩm liên quan trong website của bạn.",
+      "verify": "Xem danh sách liên kết nội bộ trong tab Liên kết của phần Soi chi tiết."
+    },
+    "content_og": {
+      "name": "Thẻ chia sẻ mạng xã hội (Open Graph)",
+      "why": "Khi chia sẻ link lên Facebook, Zalo, Open Graph giúp hiển thị hình ảnh đại diện đẹp mắt, tiêu đề và mô tả rõ ràng.",
+      "fix": "Bổ sung đủ 3 thẻ og:title, og:description và og:image vào phần <head> (gửi cho người làm web của bạn).",
+      "verify": "Xem khung mô phỏng xem trước trong tab Mạng xã hội của phần Soi chi tiết."
+    },
+
+    "schema_present": {
+      "name": "Dữ liệu cấu trúc Schema (JSON-LD)",
+      "why": "Schema cung cấp thông tin có cấu trúc rõ ràng cho Google, giúp trang web có cơ hội hiển thị ngôi sao đánh giá, giá cả hoặc hộp thông tin nổi bật.",
+      "fix": "Cài plugin hỗ trợ Schema hoặc chèn đoạn mã <script type=\"application/ld+json\"> phù hợp (gửi cho người làm web của bạn).",
+      "verify": "Xem danh sách các khối Schema trong tab Schema của phần Soi chi tiết."
+    },
+    "schema_valid": {
+      "name": "Tính hợp lệ của dữ liệu Schema",
+      "why": "Mã Schema sai cú pháp JSON hoặc thiếu trường bắt buộc sẽ bị Google bỏ qua và không phát huy tác dụng.",
+      "fix": "Sửa lại cú pháp JSON và bổ sung các trường bắt buộc như @context và @type (gửi cho người làm web của bạn).",
+      "verify": "Kiểm tra bằng công cụ Kiểm tra kết quả nhiều định dạng của Google (Rich Results Test)."
+    },
+    "schema_type": {
+      "name": "Loại Schema phù hợp với thực thể",
+      "why": "Khai báo đúng loại thực thể (Organization, WebSite, Article, Product...) giúp Google định danh chính xác doanh nghiệp của bạn.",
+      "fix": "Sử dụng các loại schema chuẩn như Organization cho trang chủ công ty, Article cho tin tức hoặc Product cho bán hàng (gửi cho người làm web của bạn).",
+      "verify": "Xem loại schema được phát hiện trong tab Schema."
+    },
+
+    "speed_score": {
+      "name": "Điểm hiệu năng tải trang (Google PageSpeed)",
+      "why": "Tốc độ tải trang ảnh hưởng trực tiếp đến trải nghiệm người dùng; trang tải chậm khiến khách thoát ngay trước khi xem nội dung.",
+      "fix": "Tối ưu dung lượng hình ảnh, bật bộ nhớ đệm (cache), nén tệp mã nguồn và nâng cấp gói máy chủ (gửi cho người làm web của bạn).",
+      "verify": "Kiểm tra trực tiếp trên Google PageSpeed Insights."
+    },
+    "speed_lcp": {
+      "name": "Thời gian hiển thị phần nội dung lớn nhất (LCP)",
+      "why": "Chỉ số LCP đo thời gian phần tử lớn nhất trên màn hình xuất hiện; Google khuyến nghị dưới 2,5 giây.",
+      "fix": "Nén ảnh banner đầu trang, tải trước (preload) ảnh chính và sử dụng mạng phân phối nội dung CDN (gửi cho người làm web của bạn).",
+      "verify": "Xem chỉ số LCP trong báo cáo PageSpeed Insights."
+    },
+    "speed_inp": {
+      "name": "Độ trễ phản hồi tương tác người dùng (INP)",
+      "why": "Chỉ số INP đo độ phản hồi nhanh nhạy của website khi người dùng nhấp chuột hoặc chạm màn hình.",
+      "fix": "Giảm bớt các tệp JavaScript bên thứ 3 và tối ưu hoá mã chạy ngầm (gửi cho người làm web của bạn).",
+      "verify": "Kiểm tra mục Trải nghiệm người dùng thực tế trong Google Search Console."
+    },
+    "speed_cls": {
+      "name": "Độ dịch chuyển bố cục bất ngờ (CLS)",
+      "why": "CLS đo mức độ giật hoặc xô lệch các phần tử khi trang đang tải, gây khó chịu và bấm nhầm cho người đọc.",
+      "fix": "Khai báo kích thước chiều rộng và chiều cao cố định cho ảnh và khung quảng cáo (gửi cho người làm web của bạn).",
+      "verify": "Xem chỉ số CLS trong báo cáo PageSpeed Insights."
+    }
+  },
+
+  "ui": {
+    "btn_check": "Kiểm tra SEO ngay",
+    "btn_checking": "Đang kiểm tra...",
+    "btn_inspect_details": "Soi chi tiết",
+    "btn_download_html": "Tải báo cáo (HTML)",
+    "btn_download_md": "Tải Markdown",
+    "btn_ai_settings": "Kết nối AI (tuỳ chọn)",
+    "btn_ai_explain": "Giải thích cho trang của tôi",
+    "btn_ai_rewrite": "Gợi ý viết lại bằng AI",
+    "btn_copy": "Sao chép",
+    "copied": "Đã sao chép!",
+    "ai_tag": "Gợi ý do AI",
+    "ai_disclaimer": "Gợi ý của AI, chưa kiểm chứng. Điểm SEO sẽ không đổi cho tới khi bạn sửa website và kiểm tra lại.",
+    "cta_title": "Tham gia cộng đồng kinh doanh số TAIO.CLUB",
+    "cta_desc": "Học hỏi chiến lược SEO, tự động hoá và xây dựng hệ thống kinh doanh bài bản.",
+    "cta_btn": "Khám phá ngay tại digitalbusiness.taio.club"
+  }
+}

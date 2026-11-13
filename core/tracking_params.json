@@ -1,0 +1,16 @@
+{
+  "exact_names": [
+    "gclid",
+    "gbraid",
+    "wbraid",
+    "gad_source",
+    "gad_campaignid",
+    "fbclid",
+    "msclkid",
+    "ttclid",
+    "aff_sid"
+  ],
+  "prefixes": [
+    "utm_"
+  ]
+}

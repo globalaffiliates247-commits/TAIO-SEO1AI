@@ -1,0 +1,57 @@
+{
+  "wordpress": {
+    "name": "WordPress",
+    "patterns": [
+      "wp-content",
+      "wp-includes",
+      "wp-json",
+      "content=\"wordpress"
+    ]
+  },
+  "shopify": {
+    "name": "Shopify",
+    "patterns": [
+      "cdn.shopify.com",
+      "shopify.theme",
+      "window.shopify",
+      "myshopify.com"
+    ]
+  },
+  "wix": {
+    "name": "Wix",
+    "patterns": [
+      "static.parastorage.com",
+      "wix-code",
+      "wix.com",
+      "x-wix-renderer"
+    ]
+  },
+  "webflow": {
+    "name": "Webflow",
+    "patterns": [
+      "webflow.com",
+      "wf-page",
+      "wf-site",
+      "webflow.js"
+    ]
+  },
+  "haravan": {
+    "name": "Haravan",
+    "patterns": [
+      "haravan.com",
+      "theme.hstatic.net",
+      "hstatic.net",
+      "haravan.theme"
+    ]
+  },
+  "sapo": {
+    "name": "Sapo",
+    "patterns": [
+      "bizweb.vn",
+      "themes.bizwebcdn.net",
+      "sapo.vn",
+      "bizweb.js",
+      "sapo.js"
+    ]
+  }
+}
