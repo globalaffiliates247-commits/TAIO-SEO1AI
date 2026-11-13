@@ -1,134 +1,90 @@
 # TAIO SEO Check — Kiểm Tra Sức Khoẻ SEO Website Toàn Diện
 
-<p align="center">
-  <strong>Một sản phẩm thuộc hệ sinh thái <a href="https://digitalbusiness.taio.club" target="_blank">TAIO.CLUB</a></strong><br>
-  <em>Dán 1 đường link → nhận điểm SEO 0–100, 5 việc cần sửa ngay, bảng soi chi tiết meta/liên kết/ảnh/schema/mạng xã hội, hoàn toàn bằng tiếng Việt. Có AI gợi ý nếu bạn nhập API Key riêng.</em>
-</p>
+> **TAIO SEO Check** là giải pháp phân tích và kiểm tra sức khoẻ SEO website 1 chạm, thiết kế thân thiện cho người không rành công nghệ, thuộc hệ sinh thái **TAIO.CLUB**.  
+> Dán 1 đường link duy nhất → Nhận điểm SEO 0–100, 5 việc cần sửa ngay, và bảng soi chi tiết cấu trúc thẻ meta, liên kết, ảnh, schema, mạng xã hội — 100% bằng tiếng Việt.
 
 ---
 
-## 🌟 Điểm Nổi Bật
+## 🌟 Điểm nổi bật
 
-- 🎯 **Đánh giá chuẩn xác bằng 24 luật cố định:** Phân tích toàn diện 4 nhóm: Kỹ thuật, Nội dung cơ bản, Dữ liệu cấu trúc Schema, và Tốc độ trải nghiệm thực tế (Google Core Web Vitals).
-- ⚡ **Nguyên lý Pareto 80/20:** Chỉ ra đúng 5 việc quan trọng nhất cần sửa ngay để cải thiện thứ hạng tìm kiếm, kèm hướng dẫn cụ thể dễ hiểu.
-- 🔍 **Bảng Soi chi tiết 6 Tab (F9):** Đọc trọn vẹn thông tin Meta, cây phân cấp tiêu đề H1–H6, danh sách liên kết nội bộ/ngoài, hình ảnh (kiểm tra thẻ alt), khối JSON-LD và xem trước bài đăng khi chia sẻ lên mạng xã hội.
-- 🤖 **Kết nối Trí tuệ Nhân tạo Độc lập (BYOK):** Người dùng tự nhập API Key riêng (OpenAI, Claude, Gemini, DeepSeek, OpenRouter hoặc Ollama máy cá nhân). AI hỗ trợ viết lại Title/Meta Description tối ưu và giải thích lỗi theo ngữ cảnh nền tảng website (WordPress, Shopify, Haravan, Sapo...).
-- 🔒 **Quyền riêng tư tối đa ("Key của bạn, bạn giữ"):** Key chỉ lưu trên trình duyệt của bạn (sessionStorage/localStorage). Hệ thống tuyệt đối không lưu trữ, không ghi log hay chia sẻ API Key. Điểm số SEO 100% độc lập, AI không tham gia chấm điểm.
-- 📊 **Xuất báo cáo linh hoạt:** Tải báo cáo HTML tự chứa (sẵn sàng in ra PDF) hoặc tải file Markdown phục vụ công việc kỹ thuật.
-- 💰 **Chi phí máy chủ 0đ:** Tối ưu hoá cực nhẹ, vận hành mượt mà trên gói Render Free hoặc máy tính cá nhân.
+1. **Điểm SEO 0–100 chuẩn mực:** Tính toán hoàn toàn bằng luật cố định trên 24 chỉ số thuộc 4 nhóm (Kỹ thuật, Nội dung, Schema, Tốc độ). AI không chấm điểm, đảm bảo tính khách quan và nhất quán.
+2. **5 việc cần sửa ngay (Nguyên lý Pareto 80/20):** Tập trung vào những lỗi nghiêm trọng nhất mang lại 80% kết quả cải thiện thứ hạng.
+3. **Bảng Soi Chi Tiết (6 Tab):** Đọc sâu toàn bộ thẻ Meta, cây tiêu đề H1–H6, phân loại liên kết nội bộ/bên ngoài, kiểm tra thẻ alt ảnh, dữ liệu cấu trúc Schema và mô phỏng hiển thị mạng xã hội.
+4. **Không báo lỗi Canonical oan:** Tự động lọc bỏ các tham số theo dõi quảng cáo (`utm_*`, `gclid`, `fbclid`, `aff_sid`...) trước khi kiểm tra canonical.
+5. **Trí tuệ Nhân tạo với "Key của bạn, bạn giữ":** Kết nối trực tiếp với Anthropic (Claude), Google Gemini, OpenAI (GPT-4o), OpenRouter, DeepSeek hoặc Ollama cục bộ. Máy chủ không lưu key và không lưu dữ liệu.
+6. **Bảo mật tuyệt đối:** Chống SSRF, chống Prompt Injection bằng khối mã ngăn cách ngẫu nhiên, tự động che giấu key trong mọi thông báo lỗi và log.
+7. **Xuất báo cáo 1 chạm:** Tải file HTML tự chứa hoặc file Markdown cấu trúc chuẩn cho đội ngũ lập trình viên.
 
 ---
 
-## 🚀 Hướng Dẫn Cài Đặt & Chạy Trên Máy Cá Nhân
+## 🚀 Hướng dẫn cài đặt và chạy trên máy cá nhân
 
-### Yêu cầu hệ thống:
-- Hệ điều hành: macOS (tối ưu cho Apple Silicon M1/M2/M3 và Intel), Windows 10/11 hoặc Linux.
-- **Python >= 3.11** (nếu máy chưa có, tải bản cài đặt chính thức tại [python.org/downloads](https://www.python.org/downloads/)).
+### Yêu cầu hệ thống
+- Hệ điều hành: macOS (Apple Silicon M1/M2/M3 hoặc Intel) hoặc Windows 10/11.
+- Python: Phiên bản từ **3.11 trở lên**.
 
-### Cách 1: Khởi chạy nhanh bằng Script tự động
+### Khởi chạy 1 chạm
 
-**Trên macOS / Linux:**
+#### Trên macOS / Linux:
 ```bash
-# Cấp quyền thực thi và khởi chạy
+git clone https://github.com/globalaffiliates247-commits/TAIO-SEO1AI.git
+cd TAIO-SEO1AI
 chmod +x start.sh
 ./start.sh
 ```
+Trình duyệt sẽ tự động mở tại địa chỉ: `http://127.0.0.1:8770`
 
-**Trên Windows:**
-- Nhấp đúp chuột vào tệp `start.bat` (hoặc mở Command Prompt và gõ `start.bat`).
+#### Trên Windows:
+Nhấp đúp vào file `start.bat` (hoặc mở Command Prompt và gõ `start.bat`).
 
-Script sẽ tự động kiểm tra phiên bản Python, khởi tạo môi trường ảo `.venv`, cài đặt các thư viện cần thiết và mở trình duyệt tại địa chỉ `http://127.0.0.1:8770`.
+---
 
-### Cách 2: Chạy thủ công bằng Terminal
+## ☁️ Hướng dẫn triển khai miễn phí lên Render (Docker)
 
+1. **Đăng nhập vào Render:** Truy cập [render.com](https://render.com).
+2. **Tạo Web Service mới:** Chọn **New +** → **Web Service** → Chọn repository `TAIO-SEO1AI`.
+3. **Cấu hình dịch vụ:**
+   - **Name:** `taio-seo1ai`
+   - **Region:** `Singapore` (độ trễ thấp nhất cho Việt Nam).
+   - **Runtime:** `Docker`
+   - **Instance Type:** `Free`
+   - **Health Check Path:** `/healthz`
+4. **Cấu hình Biến môi trường (Environment Variables):**
+   - `LOCAL_MODE`: `0`
+   - `DAILY_LIMIT`: `5`
+   - `MAX_PARALLEL_CHECKS`: `2`
+   - `AI_DAILY_LIMIT`: `20`
+   - `MAX_PARALLEL_AI`: `2`
+   - `PAGESPEED_API_KEY`: *(Nhập API Key miễn phí từ Google Cloud Console để tránh bị giới hạn lượt gọi Core Web Vitals)*.
+5. **Bấm Deploy:** Sau khoảng 2–3 phút, dịch vụ sẽ hoạt động trực tiếp trên tên miền của Render.
+
+---
+
+## 🔑 Hướng dẫn lấy key AI và bảng ước tính chi phí
+
+Người dùng tự mang API key cá nhân, chi phí thanh toán trực tiếp cho nhà cung cấp:
+
+| Nhà cung cấp | Nơi lấy API Key | Model khuyến nghị | Chi phí ước tính mỗi lần gọi |
+|---|---|---|---|
+| **Google Gemini** | [aistudio.google.com](https://aistudio.google.com/) | `gemini-2.0-flash` hoặc `gemini-1.5-flash` | **Miễn phí** (hoặc ~10đ/lần) |
+| **OpenAI** | [platform.openai.com](https://platform.openai.com/) | `gpt-4o-mini` | ~20đ – 50đ / lần |
+| **Anthropic** | [console.anthropic.com](https://console.anthropic.com/) | `claude-3-5-sonnet-20241022` | ~100đ – 250đ / lần |
+| **DeepSeek** | [platform.deepseek.com](https://platform.deepseek.com/) | `deepseek-chat` | ~10đ – 20đ / lần |
+| **Ollama** | Cài đặt trên máy cá nhân | `llama3.2` | **Hoàn toàn miễn phí 0đ** |
+
+---
+
+## 🧪 Kiểm thử tự động (Unit Tests)
+
+Bộ kiểm thử bao gồm 26 bài test tự động bao quát toàn bộ 28 tiêu chí nghiệm thu:
 ```bash
-# 1. Tạo môi trường ảo
-python3 -m venv .venv
-source .venv/bin/activate   # Trên Windows: .venv\Scripts\activate
-
-# 2. Cài đặt thư viện
-pip install -r requirements.txt
-
-# 3. Chạy ứng dụng
-python app_web.py
+python3 -m unittest discover tests
 ```
 
 ---
 
-## ☁️ Hướng Dẫn Triển Khai Lên Render (Gói Free)
+## 📄 Giấy phép & Ghi công
 
-Dự án đã cấu hình sẵn sàng tệp `Dockerfile` và `render.yaml` để bạn đưa lên máy chủ Render miễn phí:
-
-1. **Đưa mã nguồn lên GitHub:** Đẩy toàn bộ repo vào tài khoản GitHub của bạn.
-2. **Tạo Web Service trên Render:**
-   - Đăng nhập vào [Render.com](https://render.com/).
-   - Chọn **New +** → **Blueprint** → Chọn repository GitHub của bạn.
-   - Render sẽ tự động nhận diện cấu hình từ `render.yaml`.
-3. **Cấu hình biến môi trường (Environment Variables):**
-   - `PORT`: `10000` (Render tự cấu hình).
-   - `LOCAL_MODE`: `0` (Chế độ máy chủ bảo mật).
-   - `PAGESPEED_API_KEY`: *(Tuỳ chọn)* Nhập API Key miễn phí từ Google Cloud để đo tốc độ mượt mà không bị giới hạn.
-4. **Health Check:** Đường dẫn kiểm tra trạng thái máy chủ là `/healthz`.
-
----
-
-## 🔑 Hướng Dẫn Lấy API Key & Dự Toán Chi Phí AI
-
-### 1. Google PageSpeed Insights API Key (Miễn phí 100%)
-- **Mục đích:** Đo lường chỉ số Core Web Vitals (LCP, INP, CLS) và điểm hiệu năng mobile.
-- **Cách lấy:** Truy cập [Google Cloud Console](https://console.cloud.google.com/), bật "PageSpeed Insights API" và tạo API Key. Đặt vào biến `PAGESPEED_API_KEY`. Nếu để trống, công cụ vẫn hoạt động nhưng có thể bị Google giới hạn số lượt kiểm tra mỗi phút.
-
-### 2. API Key Trí Tuệ Nhân Tạo (Tuỳ chọn cho F10, F11, F12)
-Công cụ hỗ trợ các nhà cung cấp AI phổ biến nhất:
-- **Google Gemini:** Miễn phí hoặc chi phí cực thấp qua [Google AI Studio](https://aistudio.google.com/).
-- **OpenAI (GPT-4o-mini):** Khoảng 0.15$ / 1 triệu tokens (khoảng 30–50 VNĐ cho mỗi lần tạo gợi ý).
-- **Anthropic Claude (Claude 3.5 Sonnet / Haiku):** Đăng ký tại [console.anthropic.com](https://console.anthropic.com/).
-- **DeepSeek:** Chi phí tiết kiệm qua [platform.deepseek.com](https://platform.deepseek.com/).
-- **OpenRouter:** Dùng chung cho hàng chục mô hình khác nhau tại [openrouter.ai](https://openrouter.ai/).
-- **Ollama / LM Studio (Chạy trên máy cá nhân):** Hoàn toàn miễn phí, không tốn chi phí API, hoạt động offline trên máy có `LOCAL_MODE=1`.
-
----
-
-## 📁 Cấu Trúc Thư Mục Dự Án
-
-```
-TAIO-SEO1AI/
-├─ app_web.py               # Điểm khởi chạy trên máy cá nhân (LOCAL_MODE=1)
-├─ wsgi.py                  # Điểm khởi chạy máy chủ Gunicorn (LOCAL_MODE=0)
-├─ version.json             # Phiên bản và build stamp
-├─ core/
-│  ├─ collect.py            # Thu thập 4 nguồn dữ liệu song song trong bộ nhớ
-│  ├─ url_tools.py          # Chuẩn hoá URL, bóc tách tham số quảng cáo UTM/Gclid
-│  ├─ tracking_params.json  # Danh sách tham số theo dõi (sửa không cần đụng code)
-│  ├─ extract_details.py    # Dựng chi tiết 6 tab: Tiêu đề, Liên kết, Ảnh, Schema, MXH
-│  ├─ cms_detect.py         # Nhận diện nền tảng website (WordPress, Shopify, Haravan...)
-│  ├─ registry.py           # Danh mục 24 luật kiểm tra SEO và trọng số
-│  ├─ score.py              # Thuật toán tính điểm nhóm và điểm tổng 0–100
-│  └─ top_fixes.py          # Chọn lọc 5 việc cần sửa ngay (Pareto 80/20)
-├─ checks/                  # Triển khai các hàm kiểm tra theo 4 nhóm
-├─ ai/                      # Module điều phối AI, prompt isolation, chống Prompt Injection
-├─ config/                  # Cấu hình providers.json, cms_signatures.json
-├─ messages/vi.json         # Toàn bộ câu chữ hiển thị tiếng Việt
-├─ vendor/claude_seo/       # Kế thừa từ mã nguồn mở Claude-seo (MIT)
-├─ web/                     # Server Flask, middleware bảo mật CSP, rate limiting, UI static
-├─ tests/                   # Bộ kiểm thử tự động toàn diện (T1–T28)
-├─ Dockerfile, render.yaml  # Cấu hình container và triển khai cloud
-├─ start.sh, start.bat      # Script khởi chạy 1-click
-└─ README.md, PRODUCT.md, CHANGELOG.md, BUILD_SPEC.md
-```
-
----
-
-## 🛡️ Cam Kết Bảo Mật & Đạo Đức Dữ Liệu
-
-1. **Không lưu trữ dữ liệu:** URL kiểm tra, nội dung HTML và báo cáo được phân tích trực tiếp trong RAM và giải phóng ngay sau khi phản hồi; không lưu trữ cơ sở dữ liệu.
-2. **Bảo vệ API Key:** API Key của người dùng không bao giờ được ghi log hay chuyển tiếp đến bất kỳ máy chủ bên thứ ba nào ngoài nhà cung cấp AI do người dùng lựa chọn.
-3. **Chống tấn công XSS & Prompt Injection:** Dữ liệu ngoại vi được kiểm soát nghiêm ngặt qua Content-Security-Policy, render an toàn qua `textContent` và cách ly dữ liệu trong các khối mã ngẫu nhiên khi gửi vào AI.
-
----
-
-## 📜 Ghi Công & Bản Quyền
-
-- Dự án được phát triển bởi **TAIO-Lee** cho hệ sinh thái **TAIO.CLUB** (`digitalbusiness.taio.club`).
-- Phần lõi phân tích kế thừa và phát triển từ dự án mã nguồn mở **Claude-seo** của tác giả **Agrici Daniel** theo giấy phép MIT (kèm theo trong `vendor/claude_seo/LICENSE`).
-- Bản quyền © 2026 TAIO.CLUB. Phát hành theo Giấy phép MIT.
+- Phát triển và hoàn thiện bởi **TAIO-Lee** cho cộng đồng doanh nghiệp số **TAIO.CLUB** ([digitalbusiness.taio.club](https://digitalbusiness.taio.club)).
+- Tái sử dụng và kế thừa từ mã nguồn mở `claude-seo` (Giấy phép MIT) của tác giả **Agrici Daniel** ([github.com/AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo)).
+- Giấy phép phân phối: **MIT License**.
