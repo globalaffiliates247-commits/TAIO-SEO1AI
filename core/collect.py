@@ -1,6 +1,7 @@
 """
 core/collect.py - Thu thập dữ liệu từ 4 nguồn song song (HTML, robots.txt, sitemap, PageSpeed).
 Giữ HTML thô trong bộ nhớ, không ghi đĩa.
+Bao gồm cơ chế phục hồi tự động khi chứng chỉ SSL của website thiếu chuỗi trung gian.
 """
 
 import os
@@ -20,6 +21,10 @@ import fetch_page
 import pagespeed_check
 import sitemap_discovery
 import url_safety
+import urllib3
+
+# Tắt cảnh báo InsecureRequestWarning khi phải fallback SSL
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def normalize_input_url(url: str) -> str:
@@ -67,6 +72,13 @@ def fetch_robots_txt(base_url: str, timeout: int = 8) -> Dict[str, Any]:
             max_redirects=3,
             max_bytes=512 * 1024,
         )
+        if res.get("error") and "ssl error" in res["error"].lower():
+            # Thử lại với session.verify = False nếu SSL lỗi
+            with url_safety.safe_requests_session(robots_url) as session:
+                session.verify = False
+                resp = session.get(robots_url, timeout=timeout, allow_redirects=True)
+                res = {"status_code": resp.status_code, "content": resp.text}
+
         status = res.get("status_code", 0)
         content = res.get("content", "")
 
@@ -182,6 +194,7 @@ def collect_all_data(
     validated_url = validate_user_url(raw_input_url)
 
     # 1. Tải HTML trang web trước để có final_url (sau chuyển hướng)
+    ssl_cert_issue = False
     try:
         page_res = fetch_page.fetch_page(
             validated_url,
@@ -195,13 +208,42 @@ def collect_all_data(
     except Exception as e:
         raise RuntimeError(f"Không truy cập được website này: {e}")
 
+    # Xử lý lỗi tải trang
     if page_res.get("error"):
         err = page_res["error"]
-        if "timeout" in err.lower():
+        if "ssl error" in err.lower() or "certificate verify failed" in err.lower():
+            # Thử lại với session.verify = False để phục hồi với các website thiếu cert trung gian (WR1, Let's Encrypt, Cloudflare)
+            try:
+                with url_safety.safe_requests_session(validated_url) as session:
+                    session.verify = False
+                    session.max_redirects = 5
+                    headers = dict(fetch_page.DEFAULT_HEADERS)
+                    resp = session.get(
+                        validated_url,
+                        headers=headers,
+                        timeout=fetch_timeout,
+                        allow_redirects=True,
+                        stream=True,
+                    )
+                    raw, too_large = fetch_page.read_bounded(resp, 5 * 1024 * 1024)
+                    resp.close()
+                    page_res = {
+                        "url": resp.url,
+                        "status_code": resp.status_code,
+                        "content": fetch_page.decode_body(raw, resp.headers.get("Content-Type", "")),
+                        "headers": dict(resp.headers),
+                        "redirect_chain": [r.url for r in resp.history] if resp.history else [],
+                        "too_large": too_large,
+                    }
+                    ssl_cert_issue = True
+            except Exception as ssl_fb_err:
+                raise RuntimeError(f"Không truy cập được website này do lỗi chứng chỉ SSL: {ssl_fb_err}")
+        elif "timeout" in err.lower():
             raise RuntimeError("Website phản hồi quá lâu (quá thời gian quy định)")
-        if "too large" in err.lower() or page_res.get("too_large"):
+        elif "too large" in err.lower() or page_res.get("too_large"):
             raise RuntimeError("Trang web vượt quá kích thước cho phép (tối đa 5 MB)")
-        raise RuntimeError(f"Không truy cập được website này: {err}")
+        else:
+            raise RuntimeError(f"Không truy cập được website này: {err}")
 
     if page_res.get("too_large"):
         raise RuntimeError("Trang web vượt quá kích thước cho phép (tối đa 5 MB)")
@@ -248,4 +290,5 @@ def collect_all_data(
         "robots": robots_res,
         "sitemap": sitemap_res,
         "pagespeed": pagespeed_res,
+        "ssl_cert_issue": ssl_cert_issue,
     }

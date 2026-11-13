@@ -9,9 +9,24 @@ from core.url_tools import normalize_url
 def check_tech_https(data: Dict[str, Any]) -> Dict[str, Any]:
     final_url = data.get("final_url", "")
     is_https = final_url.lower().startswith("https://")
+    ssl_cert_issue = data.get("ssl_cert_issue", False)
+
+    if not is_https:
+        return {
+            "status": "fail",
+            "value": "HTTP (không an toàn, thiếu mã hoá SSL)",
+        }
+
+    if ssl_cert_issue:
+        return {
+            "status": "warn",
+            "value": "HTTPS (chứng chỉ SSL thiếu chứng chỉ trung gian hoặc lỗi xác thực)",
+            "note": "Cần cấu hình đầy đủ chuỗi chứng chỉ SSL fullchain.",
+        }
+
     return {
-        "status": "pass" if is_https else "fail",
-        "value": "HTTPS" if is_https else "HTTP (không an toàn)",
+        "status": "pass",
+        "value": "HTTPS",
     }
 
 
