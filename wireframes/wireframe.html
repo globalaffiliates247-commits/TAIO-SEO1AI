@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAIO SEO Check - Wireframe 2D (5 Màn hình)</title>
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --card-bg: #ffffff;
+      --border: #d1d5db;
+      --border-dark: #9ca3af;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --gray-light: #e5e7eb;
+      --gray-dark: #374151;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px; line-height: 1.5; }
+    .container { max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .screen-selector { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; background: #fff; padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
+    .nav-btn { padding: 8px 16px; border: 1px solid var(--border); background: var(--gray-light); cursor: pointer; border-radius: 6px; font-size: 14px; font-weight: 500; }
+    .nav-btn.active { background: var(--gray-dark); color: #fff; border-color: var(--gray-dark); }
+    .wireframe-screen { display: none; background: #fff; border: 2px dashed var(--border-dark); border-radius: 12px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .wireframe-screen.active { display: block; }
+    
+    /* Elements */
+    .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 20px; border-bottom: 2px solid var(--gray-light); margin-bottom: 24px; }
+    .logo-box { font-size: 18px; font-weight: 800; }
+    .version-tag { font-size: 11px; color: var(--text-muted); font-family: monospace; margin-top: 2px; }
+    .box { border: 1px solid var(--border); border-radius: 8px; padding: 16px; background: #fafafa; margin-bottom: 16px; }
+    .btn { display: inline-block; padding: 10px 20px; background: var(--gray-dark); color: #fff; border: 1px solid var(--gray-dark); border-radius: 6px; font-weight: 600; text-align: center; cursor: pointer; }
+    .btn-outline { background: #fff; color: var(--gray-dark); border: 1px solid var(--border-dark); }
+    .input-box { width: 100%; padding: 12px; border: 2px solid var(--border-dark); border-radius: 6px; font-size: 15px; background: #fff; margin-bottom: 12px; }
+    
+    /* Layouts */
+    .score-circle { width: 120px; height: 120px; border-radius: 50%; border: 6px solid var(--gray-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 16px; font-weight: 800; font-size: 32px; }
+    .score-circle span { font-size: 13px; font-weight: normal; color: var(--text-muted); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+    @media (max-width: 640px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
+    .tabs { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 20px; overflow-x: auto; gap: 8px; }
+    .tab-item { padding: 10px 16px; border: 1px solid transparent; border-bottom: none; border-radius: 6px 6px 0 0; background: #f3f4f6; cursor: pointer; font-size: 14px; font-weight: 600; white-space: nowrap; }
+    .tab-item.active { background: #fff; border-color: var(--border); border-bottom: 2px solid #fff; margin-bottom: -2px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; background: var(--gray-light); border: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>TAIO SEO Check — Wireframe 2D Kiến Trúc Giao Diện</h1>
+  <p style="color: var(--text-muted); margin-bottom: 16px;">Wireframe xám 2D thể hiện bố cục cấu trúc 5 trạng thái trước khi lên màu TAIO Studio.</p>
+  
+  <div class="screen-selector">
+    <button class="nav-btn active" onclick="showScreen(1)">1. Chờ nhập</button>
+    <button class="nav-btn" onclick="showScreen(2)">2. Đang kiểm tra</button>
+    <button class="nav-btn" onclick="showScreen(3)">3. Kết quả tổng quan</button>
+    <button class="nav-btn" onclick="showScreen(4)">4. Soi chi tiết (6 tab)</button>
+    <button class="nav-btn" onclick="showScreen(5)">5. Kết nối AI & Gợi ý</button>
+  </div>
+
+  <!-- SCREEN 1: Chờ nhập -->
+  <div id="screen-1" class="wireframe-screen active">
+    <div class="header">
+      <div>
+        <div class="logo-box">TAIO.CLUB</div>
+        <div class="version-tag">v0.1.0 · 14112600</div>
+      </div>
+      <div><a href="#" style="font-size: 13px; color: var(--text-muted);">Kết nối AI (tuỳ chọn) ⚙️</a></div>
+    </div>
+    <div style="text-align: center; margin: 40px auto; max-width: 560px;">
+      <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">TAIO SEO Check</h2>
+      <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 28px;">Dán 1 đường link để nhận điểm SEO 0–100, 5 việc cần sửa ngay và bảng soi chi tiết meta, liên kết, ảnh, schema, mạng xã hội.</p>
+      
+      <input type="text" class="input-box" placeholder="https://example.com" value="https://taio.club">
+      <button class="btn" style="width: 100%; padding: 14px; font-size: 16px;">Kiểm tra SEO ngay</button>
+      <div style="margin-top: 14px; font-size: 13px; color: var(--text-muted);">
+        Lượt kiểm tra miễn phí hôm nay: <strong>còn 5</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Đang kiểm tra -->
+  <div id="screen-2" class="wireframe-screen">
+    <div class="header">
+      <div>
+        <div class="logo-box">TAIO.CLUB</div>
+        <div class="version-tag">v0.1.0 · 14112600</div>
+      </div>
+    </div>
+    <div style="max-width: 520px; margin: 40px auto; text-align: center;">
+      <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Đang phân tích website...</h2>
+      <div style="height: 8px; width: 100%; background: var(--gray-light); border-radius: 4px; overflow: hidden; margin-bottom: 24px;">
+        <div style="width: 65%; height: 100%; background: var(--gray-dark);"></div>
+      </div>
+      <div class="box" style="text-align: left;">
+        <div style="margin-bottom: 10px;">✓ <strong>1. Kỹ thuật:</strong> Đang phân tích mã phản hồi, SSL, robots.txt, sitemap...</div>
+        <div style="margin-bottom: 10px;">✓ <strong>2. Nội dung cơ bản:</strong> Đang đếm thẻ H1, tiêu đề, meta description, ảnh...</div>
+        <div style="margin-bottom: 10px;">⏳ <strong>3. Dữ liệu cấu trúc:</strong> Đang trích xuất schema JSON-LD...</div>
+        <div style="color: var(--text-muted);">⌛ <strong>4. Tốc độ:</strong> Đang đo chỉ số Core Web Vitals (PageSpeed API)...</div>
+      </div>
+      <div style="font-size: 12px; color: var(--text-muted);">Nếu dịch vụ vừa thức dậy, quá trình có thể mất khoảng 1 phút.</div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Kết quả tổng quan -->
+  <div id="screen-3" class="wireframe-screen">
+    <div class="header">
+      <div>
+        <div class="logo-box">TAIO.CLUB</div>
+        <div class="version-tag">v0.1.0 · 14112600</div>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-outline" style="font-size: 13px; padding: 6px 12px;">Tải HTML</button>
+        <button class="btn btn-outline" style="font-size: 13px; padding: 6px 12px;">Tải Markdown</button>
+      </div>
+    </div>
+
+    <!-- Điểm số chung & 4 nhóm -->
+    <div style="text-align: center; margin-bottom: 32px;">
+      <div class="score-circle">
+        82
+        <span>Điểm SEO</span>
+      </div>
+      <div class="badge" style="font-size: 14px; padding: 4px 12px;">Cần cải thiện (82/100)</div>
+    </div>
+
+    <div class="grid-4">
+      <div class="box" style="text-align: center;">
+        <div style="font-size: 12px; color: var(--text-muted);">Kỹ thuật (30đ)</div>
+        <div style="font-size: 22px; font-weight: 700;">28/30</div>
+        <div class="badge">Tốt</div>
+      </div>
+      <div class="box" style="text-align: center;">
+        <div style="font-size: 12px; color: var(--text-muted);">Nội dung (30đ)</div>
+        <div style="font-size: 22px; font-weight: 700;">24/30</div>
+        <div class="badge">Cần cải thiện</div>
+      </div>
+      <div class="box" style="text-align: center;">
+        <div style="font-size: 12px; color: var(--text-muted);">Schema (15đ)</div>
+        <div style="font-size: 22px; font-weight: 700;">15/15</div>
+        <div class="badge">Tốt</div>
+      </div>
+      <div class="box" style="text-align: center;">
+        <div style="font-size: 12px; color: var(--text-muted);">Tốc độ (25đ)</div>
+        <div style="font-size: 22px; font-weight: 700;">15/25</div>
+        <div class="badge">Yếu</div>
+      </div>
+    </div>
+
+    <!-- 5 Việc cần sửa ngay -->
+    <div style="margin-bottom: 32px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="font-size: 18px; font-weight: 700;">5 Việc cần sửa ngay (Nguyên lý 80/20)</h3>
+        <button class="btn btn-outline" style="font-size: 13px; padding: 6px 12px;">✨ Giải thích cho trang của tôi (AI)</button>
+      </div>
+
+      <div class="box" style="background: #fff; border-left: 4px solid var(--gray-dark);">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <strong>1. Thiếu thẻ tiêu đề H1 bài viết</strong>
+          <span class="badge" style="background: #fee2e2; border-color: #fca5a5;">Không đạt</span>
+        </div>
+        <p style="font-size: 14px; margin-bottom: 6px;"><strong>Vì sao quan trọng:</strong> H1 báo cho Google và người đọc biết chủ đề bài viết.</p>
+        <p style="font-size: 14px; margin-bottom: 6px;"><strong>Cách sửa:</strong> Thêm đúng 1 thẻ H1 cho tiêu đề trang (gửi cho người làm web của bạn).</p>
+        <p style="font-size: 13px; color: var(--text-muted);"><strong>Cách kiểm tra:</strong> Xem mục Soi chi tiết tab Tiêu đề.</p>
+      </div>
+
+      <div class="box" style="background: #fff; border-left: 4px solid var(--border-dark);">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <strong>2. Thẻ Meta Description quá ngắn (45 ký tự)</strong>
+          <span class="badge" style="background: #fef3c7; border-color: #fcd34d;">Cảnh báo</span>
+        </div>
+        <p style="font-size: 14px; margin-bottom: 6px;"><strong>Vì sao quan trọng:</strong> Tóm tắt xuất hiện dưới tiêu đề tìm kiếm để thu hút lượt bấm.</p>
+        <p style="font-size: 14px; margin-bottom: 6px;"><strong>Cách sửa:</strong> Viết đoạn mô tả từ 70–160 ký tự có lời kêu gọi hành động.</p>
+        <p style="font-size: 13px; color: var(--text-muted);"><strong>Cách kiểm tra:</strong> Xem mã nguồn phần head.</p>
+      </div>
+    </div>
+
+    <!-- Nút mở Soi chi tiết -->
+    <div style="text-align: center; margin-bottom: 32px;">
+      <button class="btn" style="padding: 14px 28px; font-size: 16px;" onclick="showScreen(4)">🔍 Mở Bảng Soi Chi Tiết (6 Tab)</button>
+    </div>
+
+    <!-- CTA TAIO.CLUB -->
+    <div class="box" style="background: #f9fafb; text-align: center; padding: 24px;">
+      <h4 style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Tham gia cộng đồng kinh doanh số TAIO.CLUB</h4>
+      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">Học hỏi chiến lược SEO, tự động hoá và xây dựng hệ thống kinh doanh bài bản.</p>
+      <a href="https://digitalbusiness.taio.club" target="_blank" class="btn btn-outline" style="font-size: 13px;">Khám phá tại digitalbusiness.taio.club</a>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: Soi chi tiết (6 tab) -->
+  <div id="screen-4" class="wireframe-screen">
+    <div class="header">
+      <div>
+        <div class="logo-box">TAIO.CLUB</div>
+        <div class="version-tag">v0.1.0 · 14112600</div>
+      </div>
+      <button class="btn btn-outline" style="font-size: 13px;" onclick="showScreen(3)">← Quay lại tóm tắt</button>
+    </div>
+
+    <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 16px;">Bảng Soi Chi Tiết (SEO Inspector)</h2>
+    
+    <div class="tabs">
+      <div class="tab-item active" onclick="switchDetailTab(0)">1. Tổng quan</div>
+      <div class="tab-item" onclick="switchDetailTab(1)">2. Tiêu đề (Headings)</div>
+      <div class="tab-item" onclick="switchDetailTab(2)">3. Liên kết (Links)</div>
+      <div class="tab-item" onclick="switchDetailTab(3)">4. Hình ảnh (Images)</div>
+      <div class="tab-item" onclick="switchDetailTab(4)">5. Schema JSON-LD</div>
+      <div class="tab-item" onclick="switchDetailTab(5)">6. Mạng xã hội (OG/Twitter)</div>
+    </div>
+
+    <!-- Tab Content 1: Tổng quan -->
+    <div id="tab-c-0" class="detail-tab-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h4 style="font-size: 16px;">Meta Tag & Thuộc tính cơ bản</h4>
+        <button class="btn btn-outline" style="font-size: 12px;" onclick="showScreen(5)">✨ Gợi ý viết lại Title/Meta bằng AI</button>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 10px; width: 140px; font-weight: 600;">Title</td>
+          <td style="padding: 10px;">TAIO.CLUB - Tự Động Hoá Kinh Doanh Số <span class="badge">42 ký tự · Chuẩn</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 10px; font-weight: 600;">Description</td>
+          <td style="padding: 10px;">Học tự động hoá và SEO thực chiến... <span class="badge">120 ký tự · Chuẩn</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 10px; font-weight: 600;">Canonical</td>
+          <td style="padding: 10px;">https://taio.club <span class="badge">Trỏ về chính trang (bình thường)</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 10px; font-weight: 600;">Khả năng Index</td>
+          <td style="padding: 10px;">Index được (HTTP 200, không bị chặn robots.txt hay noindex)</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Tab Content 2: Tiêu đề -->
+    <div id="tab-c-1" class="detail-tab-content" style="display:none;">
+      <h4 style="font-size: 16px; margin-bottom: 12px;">Cây phân cấp tiêu đề (H1–H6)</h4>
+      <div class="box">
+        <div style="padding-left: 0px; font-weight: 700;">H1: Tự Động Hoá Doanh Nghiệp Với AI</div>
+        <div style="padding-left: 20px; color: var(--text-muted); margin-top: 6px;">H2: 1. Tại sao cần tự động hoá?</div>
+        <div style="padding-left: 40px; color: var(--text-muted); margin-top: 6px;">H3: 1.1 Tiết kiệm chi phí vận hành</div>
+        <div style="padding-left: 20px; color: var(--text-muted); margin-top: 6px;">H2: 2. Hướng dẫn triển khai từng bước</div>
+      </div>
+    </div>
+
+    <!-- Tab Content 3: Liên kết -->
+    <div id="tab-c-2" class="detail-tab-content" style="display:none;">
+      <div style="display: flex; gap: 16px; margin-bottom: 12px;">
+        <strong>Nội bộ: 45 liên kết</strong> | <strong>Bên ngoài: 6 liên kết</strong>
+      </div>
+      <div class="box" style="font-size: 13px;">
+        <div>🔗 <a href="#">https://taio.club/dich-vu</a> — Anchor: "Dịch vụ"</div>
+        <div style="margin-top: 6px;">🔗 <a href="#">https://taio.club/khoa-hoc</a> — Anchor: "Khoá học"</div>
+      </div>
+    </div>
+
+    <!-- Tab Content 4: Hình ảnh -->
+    <div id="tab-c-3" class="detail-tab-content" style="display:none;">
+      <h4 style="font-size: 16px; margin-bottom: 12px;">Danh sách ảnh & Thẻ Alt</h4>
+      <div class="box" style="font-size: 13px;">
+        <div>🖼️ banner.jpg — Alt: "Banner trang chủ TAIO.CLUB" <span class="badge">Đạt</span></div>
+        <div style="margin-top: 6px;">🖼️ icon-check.svg — Alt: "" <span class="badge">Alt rỗng (ảnh trang trí)</span></div>
+      </div>
+    </div>
+
+    <!-- Tab Content 5: Schema -->
+    <div id="tab-c-4" class="detail-tab-content" style="display:none;">
+      <h4 style="font-size: 16px; margin-bottom: 12px;">Dữ liệu cấu trúc Schema (JSON-LD)</h4>
+      <div class="box" style="font-size: 13px;">
+        <div style="display: flex; justify-content: space-between;">
+          <strong>Khối #1: Organization</strong>
+          <span class="badge">Hợp lệ</span>
+        </div>
+        <pre style="background: #f3f4f6; padding: 8px; margin-top: 8px; border-radius: 4px; overflow-x: auto;">{ "@context": "https://schema.org", "@type": "Organization", "name": "TAIO.CLUB" }</pre>
+      </div>
+    </div>
+
+    <!-- Tab Content 6: Mạng xã hội -->
+    <div id="tab-c-5" class="detail-tab-content" style="display:none;">
+      <h4 style="font-size: 16px; margin-bottom: 12px;">Mô phỏng xem trước khi chia sẻ mạng xã hội</h4>
+      <div class="box" style="max-width: 480px; border: 1px solid var(--border-dark); border-radius: 8px; overflow: hidden; padding: 0;">
+        <div style="height: 140px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+          [Ảnh xem trước: og:image]
+        </div>
+        <div style="padding: 12px;">
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">TAIO.CLUB</div>
+          <div style="font-size: 15px; font-weight: 700; margin-top: 2px;">Tự Động Hoá Doanh Nghiệp Cùng TAIO</div>
+          <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Khám phá các giải pháp kinh doanh số thông minh...</div>
+        </div>
+      </div>
+      <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Chỉ mang tính minh hoạ; cách hiển thị thực tế do mạng xã hội quyết định.</div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: Cài đặt AI & Panel Gợi ý -->
+  <div id="screen-5" class="wireframe-screen">
+    <div class="header">
+      <div>
+        <div class="logo-box">TAIO.CLUB</div>
+        <div class="version-tag">v0.1.0 · 14112600</div>
+      </div>
+      <button class="btn btn-outline" style="font-size: 13px;" onclick="showScreen(3)">✕ Đóng panel</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+      <!-- Khối cài đặt AI -->
+      <div class="box" style="background: #fff;">
+        <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">⚙️ Cài đặt AI (Key của bạn, bạn giữ)</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">Key chỉ lưu trên trình duyệt của bạn và gửi thẳng tới nhà cung cấp khi bấm tạo gợi ý.</p>
+        
+        <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px;">Nhà cung cấp:</label>
+        <select class="input-box" style="margin-bottom: 12px;">
+          <option>Anthropic (Claude)</option>
+          <option>Google Gemini (OpenAI compat)</option>
+          <option>OpenAI (GPT-4o)</option>
+          <option>OpenRouter</option>
+          <option>DeepSeek</option>
+        </select>
+
+        <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px;">API Key:</label>
+        <input type="password" class="input-box" placeholder="sk-ant-... hoặc sk-..." value="sk-test-sample-key">
+
+        <label style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px;">Tên Model:</label>
+        <input type="text" class="input-box" value="claude-3-5-sonnet-20241022">
+
+        <div style="margin-bottom: 14px;">
+          <label style="font-size: 13px;"><input type="checkbox"> Nhớ key trên trình duyệt này</label>
+        </div>
+
+        <button class="btn btn-outline" style="width: 100%; font-size: 14px;">Thử kết nối</button>
+      </div>
+
+      <!-- Khối Panel gợi ý Title / Meta -->
+      <div class="box" style="background: #fff;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 style="font-size: 16px; font-weight: 700;">✨ 3 Gợi ý Viết lại Title & Meta</h3>
+          <span class="badge">Gợi ý do AI</span>
+        </div>
+
+        <div style="font-size: 13px; margin-bottom: 12px;">
+          <strong>Hiện tại:</strong> TAIO.CLUB - Nền Tảng Kinh Doanh Số (42 ký tự)
+        </div>
+
+        <!-- 3 gợi ý title -->
+        <div class="box" style="padding: 10px; margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13px;">
+            <strong>Gợi ý 1 (Tò mò):</strong>
+            <button class="btn btn-outline" style="padding: 2px 8px; font-size: 11px;">Sao chép</button>
+          </div>
+          <div style="font-size: 14px; margin-top: 4px;">Bí Quyết Tự Động Hoá Giúp Doanh Nghiệp Tăng Trưởng X3</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">54 ký tự · Đạt chuẩn · Tạo khoảng trống tò mò dựa trên nội dung trang.</div>
+        </div>
+
+        <div class="box" style="padding: 10px; margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13px;">
+            <strong>Gợi ý 2 (Con số):</strong>
+            <button class="btn btn-outline" style="padding: 2px 8px; font-size: 11px;">Sao chép</button>
+          </div>
+          <div style="font-size: 14px; margin-top: 4px;">5 Bước Xây Dựng Hệ Thống Kinh Doanh Số Tự Vận Hành</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">49 ký tự · Đạt chuẩn · Nhấn mạnh quy trình cụ thể rõ ràng.</div>
+        </div>
+
+        <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">
+          * Gợi ý của AI, chưa kiểm chứng. Điểm SEO sẽ không đổi cho tới khi bạn sửa website và kiểm tra lại.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showScreen(idx) {
+    document.querySelectorAll('.wireframe-screen').forEach((el, i) => {
+      el.classList.toggle('active', i === idx - 1);
+    });
+    document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i === idx - 1);
+    });
+  }
+
+  function switchDetailTab(tabIdx) {
+    document.querySelectorAll('.tab-item').forEach((tab, i) => {
+      tab.classList.toggle('active', i === tabIdx);
+    });
+    document.querySelectorAll('.detail-tab-content').forEach((content, i) => {
+      content.style.display = (i === tabIdx) ? 'block' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
